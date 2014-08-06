@@ -1,87 +1,80 @@
-// [IG]_Save_For_Web - Adobe Photoshop Script
-// Requirements: Adobe Photoshop CS5, or higher
-// Description: Save selected region
-// Version: 1.0, July 29, 2014
-// Author: Igor Grinchesku
-// Website:
+// **************************** Photoshop Script *************************//
+
+// ***********************************************************************//
 //
-// ============================================================================
-// Installation:
-// 1.For x86 bit OS place script in
-//          "C:\Program Files\Adobe\Adobe Photoshop #\Presets\Scripts\"
-//   For x64 bit OS depending of Photoshop bit version path may be
-//      Photoshop x86 - "C:\Program Files (x86)\Adobe\Adobe Photoshop #\Presets\Scripts\"
-//      Photoshop x64 - "C:\Program Files\Adobe\Adobe Photoshop #\Presets\Scripts\"
-// 2. Restart Photoshop
-// 3. Choose File > Scripts > [IG] Save For Web
-// ============================================================================
+// ** [IG]_Save_For_Web
+// ** @description    Save for web portion of document what is selected with
+//                    marquee tool. Berore it will be saved the trimm operation
+//                    will be aplyed to transparent pixelsx. If no selection
+//                    then entire document will be saved.
+// **
+// ** @author         Igor Grinchesku <igor.grinchesku@gmail.com>
+// ** @github         www.
+// ** @date           August 6, 2014
+// ** @require        Adobe Photoshop CS5, or higher
+// ** @instalation    www.
+//
+// ***********************************************************************//
 
-<javascriptresource>
-	<name>$$$/JavaScripts/[IG]_Save_For_Web/Menu=[IG] Save For Web</name>
-	<category>IG</category>
+<javascriptresource> // Setup script appearance in File > Scripts menu
+<name>$$$/JavaScripts/[IG] _Save_For_Web/Menu=[IG] Save For Web</name>
+    <category>IG</category>
 	<enableinfo>true</enableinfo>
-</javascriptresource>
+</javascriptresource>;
 
+#target photoshop
+app.bringToFront();
 
-//Save image for web
-try
-{
-    app.displayDialogs  = DialogModes.NO;
-    var docRef = app.activeDocument; // Refference document
-        docRef.selection.copy(true); // Copy mereged
+// ********************************** START ******************************//
 
-    var bounds = []; // Take selection bounds
-        bounds = activeDocument.selection.bounds;
+if (app.documents.length) { // Document exists
+	var doc = app.activeDocument;
+	try { // Selection exists
+		var bounds = app.activeDocument.selection.bounds;
+		// Get with and height of  image
+		var xtop = bounds[0],
+			ytop = bounds[1],
+			xbot = bounds[2],
+			ybot = bounds[3],
+			nDocWidth = xbot - xtop,
+			nDocHeigh = ybot - ytop;
 
-    //get with and height of  image
-    var xtop = bounds[0],
-        ytop = bounds[1],
-        xbot = bounds[2],
-        ybot = bounds[3],
-        nDocWidth =xbot - xtop,
-        nDocHeigh =ybot - ytop;
+		// Create new document
+		var newDoc = app.documents.add(
+			nDocWidth,
+			nDocHeigh,
+			72,
+			'TempDoc',
+			NewDocumentMode.RGB,
+			DocumentFill.TRANSPARENT);
 
-    //create new document
-    var newDoc = app.documents.add(nDocWidth, nDocHeigh, 72, "TempDoc", NewDocumentMode.RGB, DocumentFill.TRANSPARENT);
+		// Paste image from clipboard into new document
+		newDoc.paste();
+		// Trim transparent pixels
+		newDoc.trim(TrimType.TRANSPARENT, true, true, true, true);
+		// Display dialog windows
+		displayDialogs = DialogModes.ALL;
 
-    //Paste
-    newDoc.paste();
+		// Create default file object and open save for web dialog
+		WEBFile = new File('file');
+		app.activeDocument.exportDocument(WEBFile, ExportType.SAVEFORWEB);
+		app.displayDialogs = DialogModes.NO; // Hide dialog windows
 
-    //trim
-    newDoc.trim(TrimType.TRANSPARENT, true, true, true, true);
+		// Close Temp document without saving
+		newDoc.close(SaveOptions.DONOTSAVECHANGES);
 
-    //display dialog windows
-    displayDialogs = DialogModes.ALL;
+	} catch (e) { // No selection
+		displayDialogs = DialogModes.ALL; // Display dialog windows
 
-    //create default file name does not metter but metod bellow ask for it
-    WEBFile = new File( "file");
+		// Create default file object and open save for web dialog
+		WEBFile = new File('file');
+		app.activeDocument.exportDocument(WEBFile, ExportType.SAVEFORWEB);
+		app.displayDialogs = DialogModes.NO; // Hide dialog windows
 
-    //SaveForWeb
-    app.activeDocument.exportDocument(WEBFile, ExportType.SAVEFORWEB);
-    //Hide dialog windows
-    app.displayDialogs  = DialogModes.NO;
-
-    //Close Temp document without saving
-    newDoc.close(SaveOptions.DONOTSAVECHANGES);
-
+		// Close Temp document without saving
+		newDoc.close(SaveOptions.DONOTSAVECHANGES);
+	}
+} else { // No document
+	alert('No opened document to work with.');
 }
-catch(e)
-{
-    try
-    {
-	    //display dialog windows
-	    displayDialogs = DialogModes.ALL;
-
-	    //create default file name does not metter but metod bellow ask for it
-	    WEBFile = new File( "file");
-
-	    //SaveForWeb
-	    app.activeDocument.exportDocument(WEBFile, ExportType.SAVEFORWEB);
-	    //Hide dialog windows
-	    app.displayDialogs  = DialogModes.NO;
-
-	    //Close Temp document without saving
-	    newDoc.close(SaveOptions.DONOTSAVECHANGES);
-	    }catch(er){}
-}
-//End of script
+//** End of script ====================================================== **//
