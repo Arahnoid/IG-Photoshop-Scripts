@@ -1,111 +1,104 @@
-// [IG]_Vertical_Grid - Adobe Photoshop Script
-// Requirements: Adobe Photoshop CS5, or higher
-// Recommendations: To use this script in together with [IG]_Guides_Hide script
-// Description: Create horizontal lines to serve as guides for vertical
-//              spacing alignment.
-// Version: 1.0, July 29, 2014
-// Author: Igor Grinchesku
-// Website:
+﻿// **************************** Photoshop Script *************************//
+
+// ***********************************************************************//
 //
-// ============================================================================
-// Installation:
-// 1.For x86 bit OS place script in
-//          "C:\Program Files\Adobe\Adobe Photoshop #\Presets\Scripts\"
-//   For x64 bit OS depending of Photoshop bit version path may be
-//      Photoshop x86 - "C:\Program Files (x86)\Adobe\Adobe Photoshop #\Presets\Scripts\"
-//      Photoshop x64 - "C:\Program Files\Adobe\Adobe Photoshop #\Presets\Scripts\"
-// 2. Restart Photoshop
-// 3. Choose File > Scripts > [IG]_Vertical_Grid
-// ============================================================================
+// ** [IG]_Vertical_Grid
+// ** @description    Description
+// **
+// ** @author         Igor Grinchesku <igor.grinchesku@gmail.com>
+// ** @github         www.
+// ** @date           July 29, 2014
+// ** @require        Adobe Photoshop CS5, or higher
+// ** @instalation    www.
+//
+// ***********************************************************************//
 
-
-// Setup script appearance in File > Scripts menu
-<javascriptresource>
-	<name>$$$/JavaScripts/[IG]_Vertical_Grid/Menu=[IG] Vertical Grid</name>
-	<category>IG</category>
-	<enableinfo>true</enableinfo>
+<javascriptresource> // Setup script appearance in File > Scripts menu
+    <name>$$$/JavaScripts/[IG]_Vertical_Grid/Menu=[IG] Vertical_Grid</name>
+    <category>IG</category>
+    <enableinfo>true</enableinfo>
 </javascriptresource>
 
 #target photoshop
 app.bringToFront();
 
-///////////////////////////////////////////////////////////////////////////////
-// Save current preferences
-///////////////////////////////////////////////////////////////////////////////
+// ********************************** START ******************************//
 
-var startRulerUnits = app.preferences.rulerUnits;
-var startTypeUnits = app.preferences.typeUnits;
-var startDisplayDialogs = app.displayDialogs;
-
+/** Store Units Settings ================================================**/
+var startRulerUnits            = app.preferences.rulerUnits,
+    startTypeUnits             = app.preferences.typeUnits,
+    startDisplayDialogs        = app.displayDialogs;
 // Set Adobe Photoshop to use pixels and display no dialogs
-app.preferences.rulerUnits = Units.PIXELS;
-app.preferences.typeUnits = TypeUnits.PIXELS;
-app.displayDialogs = DialogModes.NO;
+    app.preferences.rulerUnits = Units.PIXELS;
+    app.preferences.typeUnits  = TypeUnits.PIXELS;
+    app.displayDialogs         = DialogModes.NO;
+/** End - Store Units Settings =============================================**/
 
-///////////////////////////////////////////////////////////////////////////////
-// Script initial settings
-///////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////
+// Script initial settings                                                      //
+//////////////////////////////////////////////////////////////////////////////////
 
 try{ var doc = app.activeDocument; }
-	catch(e){ throw new Error ( alert("You need to have opened at least one document \n" + e.message )); }
+	catch(e){ throw new Error ( alert('You need to have opened at least one document \n' + e.message )); }
 
 // Get initial settings
-actLayer = doc.activeLayer;
-var docH = doc.height.value,
-    docW = doc.width.value;
+var actLayer = doc.activeLayer,
+    docH     = doc.height.value,
+    docW     = doc.width.value;
 
 // User settings
-var gridCol, layerOp, pr, gridLead;
-    gridCol = "ff0000";             // Grid color
-    layerOp = 20;                   // Grid layer opacity
-    // distance between lines
-    gridLead = prompt("Set leading for vertical guides:", 20);
-    gridLead = parseInt(gridLead);  // convert string to integer
+var gridCol = 'ff0000', // Grid color
+    layerOp = 20,       // Grid layer opacity
+    // Distance between lines
+    gridLead = parseInt( prompt('Set leading for vertical guides:', 20) );
 
+if (isNaN(gridLead)) {
+    alert('Wrong value. Pleas inset a number.');
+    throw { name: 'Wrong value', message: 'Pleas inset a number.' };
+}
 // Calculate line length what must have 80% of document width
 // Calculate padding what must have 10% of document width
-var lineLen = parseInt((docW / 100) * 80);
-var leftPad = parseInt((docW / 100) * 10);
+var lineLen = parseInt((docW / 100) * 80),
+    leftPad = parseInt((docW / 100) * 10);
 
-///////////////////////////////////////////////////////////////////////////////
-// Create Grid Folder - Grid layer - Selection - Fill selection
-///////////////////////////////////////////////////////////////////////////////
-
+//////////////////////////////////////////////////////////////////
+// Create Grid Folder - Grid layer - Selection - Fill selection //
+//////////////////////////////////////////////////////////////////
 var gGroup, gLayer;
 
-try{ // Check if  Guides Group exists
-    gGroup = doc.layerSets.getByName("[guides]");
+// Check if  Guides Group exists
+try{
+    gGroup = doc.layerSets.getByName('[guides]');
     }catch(e){
     // Create Guides Group
     gGroup = doc.layerSets.add();
-    gGroup.name = "[guides]";
+    gGroup.name = '[guides]';
 }
 
-// check if Grid Group is locked
-    var gLock = gGroup.allLocked;
-    if (gLock){gGroup.allLocked = false;}
+// Check if Grid Group is locked
+var gLock = gGroup.allLocked;
+if (gLock){gGroup.allLocked = false;}
 
-try{ // Check if Guide Layer exists
-    gLayer = gGroup.artLayers.getByName("Vertical Spacing Grid");
-    // try clear Guide Layer
+// Check if Guide Layer exists
+try{
+    gLayer = gGroup.artLayers.getByName('Vertical Spacing Grid');
+    // Try clear Guide Layer
     doc.selection.selectAll();
     try{gLayer.clear();}catch(e){}
     }catch(e){
-    // create Grid Layer
+    // Create Grid Layer
     var gLayer         = doc.artLayers.add();
-        gLayer.name    = "Vertical Spacing Grid";
+        gLayer.name    = 'Vertical Spacing Grid';
         gLayer.opacity = layerOp;
-        // move grid layer to guides group
+        // Move grid layer to guides group
         gLayer.move( gGroup, ElementPlacement.PLACEATEND );
 }
 
-
-// Create a set of 1px selections
-// from top to bottom of document
+// Create a set of 1px selections from top to bottom of document
 for (i = gridLead; i < docH; i += gridLead) {
-    // define a square selection
-    // selection Height 1px selection Width 80%
-    // selection alignment center
+    // Define a square selection
+    // Selection Height 1px selection Width 80%
+    // Selection alignment center
     var shapeRef = [
         [leftPad, (i - 1)],
         [leftPad, i],
@@ -113,8 +106,8 @@ for (i = gridLead; i < docH; i += gridLead) {
         [(leftPad + lineLen), (i - 1)]
     ];
 
-    // if this is first selection make normal selection
-    // else append selection to existing one
+    // If this is first selection make normal selection
+    // Else append selection to existing one
     if (i == gridLead) {
             doc.selection.select(shapeRef);
         } else {
@@ -125,20 +118,16 @@ for (i = gridLead; i < docH; i += gridLead) {
 // Fill the current selection with color
 var fillColor = new SolidColor();
     fillColor.rgb.hexValue = gridCol;
-    // set active layer to Grid Layer
-    doc.activeLayer = gLayer;
-    // Fill
-    doc.selection.fill(fillColor);
-    // Clear the selection
-    doc.selection.deselect();
-    // restore active layer
-    doc.activeLayer = actLayer;
+    doc.activeLayer = gLayer;             // Set active layer to Grid Layer
+    doc.selection.fill(fillColor);        // Fill
+    doc.selection.deselect();             // Clear the selection
+    doc.activeLayer = actLayer;           // Restore active layer
+    if (gLock)(gGroup.allLocked = gLock); // Restore locked status of Grid Group
 
-    // restore locked status of Grid Group
-    if (gLock)(gGroup.allLocked = gLock);
-///////////////////////////////////////////////////////////////////////////////
-// Restore preferences
-///////////////////////////////////////////////////////////////////////////////
-app.preferences.rulerUnits = startRulerUnits;
-app.preferences.typeUnits = startTypeUnits;
-app.displayDialogs = startDisplayDialogs;
+// ************************************* END ********************************//
+
+/** Restore Units Settings ================================================ **/
+    app.preferences.rulerUnits = startRulerUnits;
+    app.preferences.typeUnits  = startTypeUnits;
+    app.displayDialogs         = startDisplayDialogs;
+/** End - Restored Units Settings ========================================= **/
