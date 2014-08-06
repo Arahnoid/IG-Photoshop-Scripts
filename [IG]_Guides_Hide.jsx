@@ -14,11 +14,11 @@
 //
 // ***********************************************************************//
 
-< javascriptresource > // Setup script appearance in File > Scripts menu
-< name > $$$ / JavaScripts / [IG] _Guides_Hide / Menu = [IG] Guides Hide < /name>
-    <category>IG</category >
-	< enableinfo > true < /enableinfo>
-</javascriptresource > ;
+<javascriptresource> // Setup script appearance in File > Scripts menu
+<name>$$$/JavaScripts/[IG] _Guides_Hide/Menu=[IG] Guides Hide</name>
+    <category>IG</category>
+	<enableinfo>true</enableinfo>
+</javascriptresource>;
 
 // ********************************** START ******************************//
 
