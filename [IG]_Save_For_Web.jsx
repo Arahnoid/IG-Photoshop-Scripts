@@ -40,18 +40,18 @@ if (app.documents.length) { // Document exists
 			nDocHeigh = ybot - ytop;
 
 		// Create new document
-		var newDoc = app.documents.add(
+		var tempDoc = app.documents.add(
 			nDocWidth,
 			nDocHeigh,
 			72,
 			'TempDoc',
-			NewDocumentMode.RGB,
+			tempDocumentMode.RGB,
 			DocumentFill.TRANSPARENT);
 
 		// Paste image from clipboard into new document
-		newDoc.paste();
+		tempDoc.paste();
 		// Trim transparent pixels
-		newDoc.trim(TrimType.TRANSPARENT, true, true, true, true);
+		tempDoc.trim(TrimType.TRANSPARENT, true, true, true, true);
 		// Display dialog windows
 		displayDialogs = DialogModes.ALL;
 
@@ -61,7 +61,7 @@ if (app.documents.length) { // Document exists
 		app.displayDialogs = DialogModes.NO; // Hide dialog windows
 
 		// Close Temp document without saving
-		newDoc.close(SaveOptions.DONOTSAVECHANGES);
+		tempDoc.close(SaveOptions.DONOTSAVECHANGES);
 
 	} catch (e) { // No selection
 		displayDialogs = DialogModes.ALL; // Display dialog windows
@@ -72,7 +72,7 @@ if (app.documents.length) { // Document exists
 		app.displayDialogs = DialogModes.NO; // Hide dialog windows
 
 		// Close Temp document without saving
-		newDoc.close(SaveOptions.DONOTSAVECHANGES);
+		tempDoc.close(SaveOptions.DONOTSAVECHANGES);
 	}
 } else { // No document
 	alert('No opened document to work with.');
