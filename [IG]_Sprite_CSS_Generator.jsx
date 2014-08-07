@@ -4,7 +4,7 @@
 //
 // ** [IG]_Sprite_CSS_Generator
 // ** @description    Script is useful for making CSS for sprites.
-// 					  Script displays a prompt window with information about
+//                    Script displays a prompt window with information about
 //                    layer or selection:
 //                    - Position Top left X Y
 //                    - Width and Height
@@ -44,14 +44,14 @@ if (preferences.rulerUnits != Units.PIXELS) {
 /** End - Store Units Settings ============================================ **/
 
 try {
-	try {
-		var bounds = app.activeDocument.selection.bounds.length;
-		getSelectionInfo();
-	} catch (e) {
-		getLayerInfo();
-	}
+    try {
+        var bounds = app.activeDocument.selection.bounds.length;
+        getSelectionInfo();
+    } catch (e) {
+        getLayerInfo();
+    }
 } catch (e) {
-	alert(e);
+    alert(e);
 }
 
 
@@ -70,44 +70,44 @@ if (docUnits !== undefined) {
 
 // Get size and position of selected layer
 function getLayerInfo() {
-	var doc = app.activeDocument.activeLayer,
-		xtop = doc.bounds[0].value,
-		ytop = doc.bounds[1].value,
-		xbot = doc.bounds[2].value,
-		ybot = doc.bounds[3].value,
-		layerHeight = ybot - ytop,
-		layerWidth = xbot - xtop;
-	prompt(
-		// Prompt text
-		'Layer name: ' + doc.name +
-		'\nLayer \t\tW: ' + layerWidth + '\t\tH: ' + layerHeight +
-		'\nPosition\t\tX: ' + xtop +     '\t\tY: ' + ytop,
-		// Prompt input box text
-		'width: '  + layerWidth  + 'px; ' +
-		'height: ' + layerHeight + 'px; ' +
-		'background-position: -'+xtop+'px -'+ytop+'px; ' +
-		'top: '    + ytop +'px; ' +
-		'left: '   + xtop + 'px;');
+    var doc = app.activeDocument.activeLayer,
+        xtop = doc.bounds[0].value,
+        ytop = doc.bounds[1].value,
+        xbot = doc.bounds[2].value,
+        ybot = doc.bounds[3].value,
+        layerHeight = ybot - ytop,
+        layerWidth = xbot - xtop;
+    prompt(
+        // Prompt text
+        'Layer name: ' + doc.name +
+        '\nLayer \t\tW: ' + layerWidth + '\t\tH: ' + layerHeight +
+        '\nPosition\t\tX: ' + xtop +     '\t\tY: ' + ytop,
+        // Prompt input box text
+        'width: '  + layerWidth  + 'px; ' +
+        'height: ' + layerHeight + 'px; ' +
+        'background-position: -'+xtop+'px -'+ytop+'px; ' +
+        'top: '    + ytop +'px; ' +
+        'left: '   + xtop + 'px;');
 }
 
 // Get size and position of selection
 function getSelectionInfo() {
-	var selectionRef = app.activeDocument.selection,
-		xtop = selectionRef.bounds[0].value,
-		ytop = selectionRef.bounds[1].value,
-		xbot = selectionRef.bounds[2].value,
-		ybot = selectionRef.bounds[3].value,
-		selectionHeight = ybot - ytop,
-		selectionWidth = xbot - xtop;
-	prompt(
-		// Prompt text
-		'Selection properties: \n' +
-		'Size \t\tW:' + selectionWidth + '\t\tH:' + selectionHeight +
-		'\nPosition\t\tX:' + xtop + '\t\tY:' + ytop,
-		// Prompt input box text
-		'width: '  + selectionWidth + 'px; ' +
-		'height: ' + selectionHeight + 'px; ' +
-		'background-position: -' + xtop+'px -'+ytop+'px; ' +
-		'top: '    + ytop +'px; ' +
-		'left: '   + xtop + 'px;');
+    var selectionRef = app.activeDocument.selection,
+        xtop = selectionRef.bounds[0].value,
+        ytop = selectionRef.bounds[1].value,
+        xbot = selectionRef.bounds[2].value,
+        ybot = selectionRef.bounds[3].value,
+        selectionHeight = ybot - ytop,
+        selectionWidth = xbot - xtop;
+    prompt(
+        // Prompt text
+        'Selection properties: \n' +
+        'Size \t\tW:' + selectionWidth + '\t\tH:' + selectionHeight +
+        '\nPosition\t\tX:' + xtop + '\t\tY:' + ytop,
+        // Prompt input box text
+        'width: '  + selectionWidth + 'px; ' +
+        'height: ' + selectionHeight + 'px; ' +
+        'background-position: -' + xtop+'px -'+ytop+'px; ' +
+        'top: '    + ytop +'px; ' +
+        'left: '   + xtop + 'px;');
 }
