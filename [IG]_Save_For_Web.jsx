@@ -9,10 +9,10 @@
 //                    then entire document will be saved.
 // **
 // ** @author         Igor Grinchesku <igor.grinchesku@gmail.com>
-// ** @github         www.
+// ** @github         https://github.com/Arahnoid/IG-Photoshop-Scripts
 // ** @date           August 6, 2014
 // ** @require        Adobe Photoshop CS5, or higher
-// ** @instalation    www.
+// ** @instalation    https://github.com/Arahnoid/IG-Photoshop-Scripts
 //
 // ***********************************************************************//
 
