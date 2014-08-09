@@ -2,8 +2,14 @@
 
 // ***********************************************************************//
 //
-// ** [IG]_Vertical_Grid
-// ** @description    Description
+// ** [IG]_Baseline_Grid
+// ** @description    Create a baseline grid for better alignment of graphic and
+//                    text elements in your layout.
+//                    Read following for better understanding of baseline
+//                    grid concept
+//                    http://alistapart.com/article/settingtypeontheweb/
+//                    http://www.teehanlax.com/blog/designing-faster-with-a-baseline-grid/
+//
 // **
 // ** @author         Igor Grinchesku <igor.grinchesku@gmail.com>
 // ** @github         https://github.com/Arahnoid/IG-Photoshop-Scripts
@@ -14,7 +20,7 @@
 // ***********************************************************************//
 
 <javascriptresource> // Setup script appearance in File > Scripts menu
-    <name>$$$/JavaScripts/[IG]_Vertical_Grid/Menu=[IG] Vertical_Grid</name>
+    <name>$$$/JavaScripts/[IG]_Baseline_Grid/Menu=[IG] Baseline Grid</name>
     <category>IG</category>
     <enableinfo>true</enableinfo>
 </javascriptresource>
