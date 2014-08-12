@@ -4,8 +4,8 @@
 //
 // ** [IG]_Save_For_Web
 // ** @description    Save for web portion of document what is selected with
-//                    marquee tool. Berore it will be saved the trimm operation
-//                    will be aplyed to transparent pixelsx. If no selection
+//                    marquee tool. Before it will be saved the trim operation
+//                    will be applied to transparent pixels. If no selection
 //                    then entire document will be saved.
 // **
 // ** @author         Igor Grinchesku <igor.grinchesku@gmail.com>
