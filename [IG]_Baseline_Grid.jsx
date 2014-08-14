@@ -19,14 +19,14 @@
 //
 // ***********************************************************************//
 
-/*<javascriptresource> // Setup script appearance in File > Scripts menu
+<javascriptresource> // Setup script appearance in File > Scripts menu
     <name>$$$/JavaScripts/[IG]_Baseline_Grid/Menu=[IG] Baseline Grid</name>
     <category>IG</category>
     <enableinfo>true</enableinfo>
-</javascriptresource>*/
+</javascriptresource>
 
-// #target photoshop
-// app.bringToFront();
+#target photoshop
+app.bringToFront();
 
 try{ var doc = app.activeDocument; }
     catch(e){ throw new Error ( alert('You need to have opened at least one document \n' + e.message )); }
