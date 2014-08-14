@@ -123,8 +123,7 @@ var buttonGroup = w.add ('group');
     buttonGroup.alignment = 'right';
 var ok_btn     = buttonGroup.add ('button', undefined, 'Create', {name:'ok'});
 var cancel_btn = buttonGroup.add ('button', undefined, 'Cancel', {name:'cancel'});
-var test_btn   = buttonGroup.add ('button', undefined, 'T');
-test_btn.onClick = function (){ alert("opSla = " + opSla.value);};
+
 ok_btn.onClick = function () {
     var gridColor = selectedRadoButton (colorGrp);
     w.close( );
