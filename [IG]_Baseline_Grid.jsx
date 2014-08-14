@@ -19,11 +19,16 @@
 //
 // ***********************************************************************//
 
-<javascriptresource> // Setup script appearance in File > Scripts menu
+// BEGIN__HARVEST_EXCEPTION_ZSTRING
+
+<javascriptresource>
     <name>$$$/JavaScripts/[IG]_Baseline_Grid/Menu=[IG] Baseline Grid</name>
     <category>IG</category>
     <enableinfo>true</enableinfo>
+    <eventid>2bf1c7be-a6c4-46e9-9d33-528ea78d02b3</eventid>
 </javascriptresource>
+
+// END__HARVEST_EXCEPTION_ZSTRING
 
 #target photoshop
 app.bringToFront();

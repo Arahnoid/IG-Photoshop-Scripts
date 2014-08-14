@@ -6,7 +6,7 @@
 // ** @description    Remove from document:
 //                    - Guides
 //                    - Layer comps
-//                    - Alpha Chanels
+//                    - Alpha Channels
 //                    - Patch items
 //
 // **
@@ -18,14 +18,19 @@
 //
 // ***********************************************************************//
 
-<javascriptresource> // Setup script appearance in File > Scripts menu
-    <name>$$$/JavaScripts/[IG]_Cleanup_document/Menu=[IG] Cleanup_document</name>
+// BEGIN__HARVEST_EXCEPTION_ZSTRING
+
+<javascriptresource>
+    <name>$$$/JavaScripts/[IG]_Cleanup_document/Menu=[IG] Cleanup document</name>
     <category>IG</category>
     <enableinfo>true</enableinfo>
-</javascriptresource>;
+    <eventid>5be806f7-1621-4e9a-bf3b-9559bf21f1a1</eventid>
+</javascriptresource>
+
+// END__HARVEST_EXCEPTION_ZSTRING
 
 // #target photoshop
-// app.bringToFront();
+app.bringToFront();
 
 // ********************************** START ******************************//
 /** Store Units Settings ===================================================**/
@@ -51,12 +56,16 @@ try {
 
 if (app.documents.length > 0) { // If any document is opened
     var doc = app.activeDocument;
-    var answer = confirm('This script woll remove: \n Cayer Comps,\n All Guides, Aditionsl Alpha canels in Chanels palette,\n Path Items', false, 'Clean document!');
+    var answer = confirm(
+        'This script will remove: \n ' +
+        'Layer Comps,\n ' +
+        'All Guides, Additional Alpha channels in Channels palette,\n ' +
+        'Path Items', false, 'Clean document!');
 
     // If user agree do
     if (answer) {
         doc.layerComps.removeAll(); // Remove Layer Comps
-        doc.chanels.removeAll();    // Remove all chanels
+        doc.chanels.removeAll();    // Remove all channels
         doc.pathItems.removeAll();  // Remove Path items
         clearGuides();
     }

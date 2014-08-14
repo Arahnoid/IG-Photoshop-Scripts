@@ -19,11 +19,16 @@
 //
 // *********************************************************************** //
 
-<javascriptresource> // Setup script appearance in File > Scripts menu
+// BEGIN__HARVEST_EXCEPTION_ZSTRING
+
+<javascriptresource>
     <name>$$$/JavaScripts/[IG]_Sprite_CSS_Generator/Menu=[IG] Sprite CSS Generator</name>
     <category>IG</category>
     <enableinfo>true</enableinfo>
-</javascriptresource>;
+    <eventid>0f573c78-4ecd-47e7-938a-89140c35205c</eventid>
+</javascriptresource>
+
+// END__HARVEST_EXCEPTION_ZSTRING
 
 #target photoshop
 app.bringToFront();

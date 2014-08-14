@@ -18,11 +18,16 @@
 //
 // *********************************************************************** //
 
-<javascriptresource> // Setup script appearance in File > Scripts menu
-    <name>$$$/JavaScripts/[IG]_Resize_Image/Menu=[IG] Resize_Image</name>
+// BEGIN__HARVEST_EXCEPTION_ZSTRING
+
+<javascriptresource>
+    <name>$$$/JavaScripts/[IG]_Resize_Image/Menu=[IG] Resize Image</name>
     <category>IG</category>
     <enableinfo>true</enableinfo>
-</javascriptresource>;
+    <eventid>5be806f7-1621-4e9a-bf3b-9559bf21f1a1</eventid>
+</javascriptresource>
+
+// END__HARVEST_EXCEPTION_ZSTRING
 
 // #target photoshop
 app.bringToFront();

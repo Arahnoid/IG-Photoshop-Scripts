@@ -16,11 +16,16 @@
 //
 // ***********************************************************************//
 
-<javascriptresource> // Setup script appearance in File > Scripts menu
-<name>$$$/JavaScripts/[IG] _Save_For_Web/Menu=[IG] Save For Web</name>
+// BEGIN__HARVEST_EXCEPTION_ZSTRING
+
+<javascriptresource>
+<name>$$$/JavaScripts/[IG]_Save_For_Web/Menu=[IG] Save For Web</name>
     <category>IG</category>
 	<enableinfo>true</enableinfo>
-</javascriptresource>;
+	<eventid>b15f842c-c855-4bc8-a4c5-288c097dc082</eventid>
+</javascriptresource>
+
+// END__HARVEST_EXCEPTION_ZSTRING
 
 #target photoshop
 app.bringToFront();

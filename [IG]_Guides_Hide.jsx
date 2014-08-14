@@ -14,11 +14,16 @@
 //
 // ***********************************************************************//
 
-<javascriptresource> // Setup script appearance in File > Scripts menu
-<name>$$$/JavaScripts/[IG] _Guides_Hide/Menu=[IG] Guides Hide</name>
+// BEGIN__HARVEST_EXCEPTION_ZSTRING
+
+<javascriptresource>
+<name>$$$/JavaScripts/[IG]_Guides_Hide/Menu=[IG] Guides Hide</name>
     <category>IG</category>
 	<enableinfo>true</enableinfo>
-</javascriptresource>;
+	<eventid>8cc65895-ba76-4b45-8ea9-04c1e7023112</eventid>
+</javascriptresource>
+
+// END__HARVEST_EXCEPTION_ZSTRING
 
 // ********************************** START ******************************//
 
