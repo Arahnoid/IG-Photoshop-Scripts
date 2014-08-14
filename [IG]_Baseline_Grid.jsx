@@ -166,35 +166,46 @@ function main(gridLead, layerOp, gridCol){
     // - Create grid layer
     // - Create selection
     // - Fill selection
-    var gGroup, gLayer;
+    var guideGroup, guideLayer;
 
     // Check if Guides Group exists
     try{
-        gGroup = doc.layerSets.getByName('[guides]');
+        guideGroup = doc.layerSets.getByName('[guides]');
         }catch(e){
         // Create Guides Group
-        gGroup = doc.layerSets.add();
-        gGroup.name = '[guides]';
+        guideGroup = doc.layerSets.add();
+        guideGroup.name = '[guides]';
     }
 
     // Check if Grid Group is locked
-    var gLock = gGroup.allLocked;
-    if (gLock){gGroup.allLocked = false;}
+    var guideGroupLocked = guideGroup.allLocked;
+    if (guideGroupLocked){guideGroup.allLocked = false;}
 
-    // Check if Guide Layer exists
-    try{
-        gLayer = gGroup.artLayers.getByName('Baseline Grid');
-        gLayer.opacity = layerOp;
+    // Collect layers with matching name using regular expression
+    var nameEXP = /\bBaseline Grid\s-\s[0-9]{2}\spx/g;
+    var layersCollection = [];
+    for (var l = 0; l < guideGroup.artLayers.length; l++) {
+        if (nameEXP.test(guideGroup.artLayers[l].name)) {
+            layersCollection.push(guideGroup.artLayers[l].name);
+        }
+    }
+
+    // If 'Baseline Grid - %n px' layer exists
+    if(layersCollection[0] !== undefined) {
+        guideLayer = guideGroup.artLayers.getByName(layersCollection[0]);
+        guideLayer.opacity = layerOp;
+        guideLayer.name = 'Baseline Grid - ' + gridLead +' px';
         // Try clear Guide Layer
-        doc.selection.selectAll();
-        try{gLayer.clear();}catch(e){}
-        }catch(e){
-        // Create Grid Layer
-        var gLayer         = doc.artLayers.add();
-            gLayer.name    = 'Baseline Grid';
-            gLayer.opacity = layerOp;
-            // Move grid layer to guides group
-            gLayer.move( gGroup, ElementPlacement.PLACEATEND );
+         doc.selection.selectAll();
+        try{guideLayer.clear();}catch(e){}
+    } else {
+        // If 'Baseline Grid - %n px' layer not found
+        // create 'Baseline Grid - %n px' layer
+        guideLayer         = doc.artLayers.add();
+        guideLayer.name    = 'Baseline Grid - ' + gridLead +' px';
+        guideLayer.opacity = layerOp;
+        // Move grid layer to guides group
+        guideLayer.move( guideGroup, ElementPlacement.PLACEATEND );
     }
 
     // Create a set of 1px selections from top to bottom of document
@@ -221,11 +232,12 @@ function main(gridLead, layerOp, gridCol){
     // Fill the current selection with color
     var fillColor = new SolidColor();
         fillColor.rgb.hexValue = gridCol;
-        doc.activeLayer = gLayer;             // Set active layer to Grid Layer
-        doc.selection.fill(fillColor);        // Fill
-        doc.selection.deselect();             // Clear the selection
-        doc.activeLayer = actLayer;           // Restore active layer
-        if (gLock)(gGroup.allLocked = gLock); // Restore locked status of Grid Group
+        doc.activeLayer = guideLayer;      // Set active layer to Grid Layer
+        doc.selection.fill(fillColor);     // Fill
+        doc.selection.deselect();          // Clear the selection
+        doc.activeLayer = actLayer;        // Restore active layer
+        // Restore locked status of Grid Group
+        if (guideGroupLocked)(guideGroup.allLocked = guideGroupLocked);
 
     // ********************************** END ********************************//
 
